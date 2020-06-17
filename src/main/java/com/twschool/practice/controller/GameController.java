@@ -24,7 +24,6 @@ public class GameController {
         String result = gameService.guess(guess);
         map.put("input", guess);
         map.put("output", result);
-
         return map;
     }
 }
