@@ -3,10 +3,11 @@ package com.twschool.practice.service;
 import com.twschool.practice.domain.GameStatus;
 import com.twschool.practice.domain.GuessNumberGame;
 import com.twschool.practice.domain.RandomAnswerGenerator;
+import com.twschool.practice.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GameService {
     @Autowired
@@ -32,17 +33,7 @@ public class GameService {
     }
 
 
-
-//    public ResultPlayingDTO guessByUserId(String userAnswerString, String userId) {
-//        if(getGuessNumberGame() != null){
-//            startGame();
-//        }
-//        return contineGame(userAnswerString, userId, playingGame);
-//
-//    }
-
     public void calculateScore(GuessNumberGame guessNumberGame, String userId) {
-        //计算增量
         int score = 0;
         if(guessNumberGame.getStatus().equals(GameStatus.SUCCEED)) {
             int times = calculateWinTimes(userId);
@@ -62,6 +53,14 @@ public class GameService {
     }
 
     private int calculateWinTimes(String userId) {
-        return 0;
+        int countUser = 0;
+        List<User> userList = new ArrayList<User>();
+        //从数据库中查询用户保留了几条数据添加到userList中
+        for (User user : userList){
+            if(user.getStatus().equals("SUCCESS")){
+                countUser++;
+            }
+        }
+        return countUser;
     }
 }
